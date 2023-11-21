@@ -1,16 +1,60 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-#file: app.py
-#@author: Gorit
-#@contact: gorit@qq.com
-#@time: 2020/2/26 9:08
+# Refer: https://hackmd.io/@shaoeChen/rkpy9CGZz?type=view
 
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for, redirect, request
 
-app = Flask(__name__) # 实例化 flask , __name__ 会作为 app 核心的一个标识，这个可以为任意的字符串
+app = Flask(__name__)
 
-@app.route('/') # 使用路由，给 hello 函数定义一个路由，然后游览器通过http 请求得到相对应的数据
-def index(): # hello 是视图函数，也是 mvc 中的 controller
-    return render_template('index.html')
 
+
+def adder(num):
+    return 10+int(num)
+
+
+def encrypt():
+    return
+
+
+def decrypt():
+    return
+
+name = 'Grey Li'
+movies = [
+    {'title': 'My Neighbor Totoro', 'year': '1988'},
+    {'title': 'Dead Poets Society', 'year': '1989'},
+    {'title': 'A Perfect World', 'year': '1993'},
+    {'title': 'Leon', 'year': '1994'},
+    {'title': 'Mahjong', 'year': '1996'},
+    {'title': 'Swallowtail Butterfly', 'year': '1996'},
+    {'title': 'King of Comedy', 'year': '1999'},
+    {'title': 'Devils on the Doorstep', 'year': '1999'},
+    {'title': 'WALL-E', 'year': '2008'},
+    {'title': 'The Pork of Music', 'year': '2012'},
+]
+
+@app.route('/')
+def index():
+    return render_template('index.html', name=name, movies=movies)
+
+
+@app.route('/loginurl', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        return redirect(url_for('hello', username=request.form.get('username')))
+
+    return render_template('login.html')
+
+
+@app.route('/hello/<username>')
+def hello(username):
+    return render_template('hello.html', username=username)
+
+
+@app.route('/cpaa', methods=['GET', 'POST'])
+def cp():
+    if request.method == 'POST':
+        return 'Hello ' + request.values['username']
+    return render_template('cipher.html')
+
+
+app.debug = True
 app.run()
