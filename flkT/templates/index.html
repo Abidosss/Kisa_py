@@ -12,6 +12,8 @@
         <li>{{ movie.title }} - {{ movie.year }}</li>  {# 等同于 movie['title'] #}
         {% endfor %}  {# 使用 endfor 标签结束 for 语句 #}
     </ul>
-    <a href="/login">使用解密</a>
+    <a href={{ url_for('login') }}>使用login</a>
+</p>
+    <a href={{ url_for('cp') }}>使用解密</a>
 </body>
 </html>
