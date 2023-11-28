@@ -17,6 +17,7 @@ def encrypt():
 def decrypt():
     return
 
+# Test Text
 name = 'Grey Li'
 movies = [
     {'title': 'My Neighbor Totoro', 'year': '1988'},
@@ -34,6 +35,13 @@ movies = [
 @app.route('/')
 def index():
     return render_template('index.html', name=name, movies=movies)
+
+
+@app.route('/ad',methods=['GET','POST'])
+def play():
+    if request.method == 'POST':
+        return redirect(url_for('hello', username=request.form.get('username')))
+    return render_template('playground.html')
 
 
 @app.route('/loginurl', methods=['GET', 'POST'])
