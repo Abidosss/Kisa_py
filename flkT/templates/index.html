@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
-    <title>盖亚计算器</title>
+    <title>计算器</title>
 </head>
 <body>
     <h2>输入要计算的字串</h2>
 </body>
 <form method='post' action={{ url_for('index') }}>
     <p>
-    <input type='text' name='username'>
+    输入位移
+    <input type='text' name='digit'>
 </p>
     <p>
-    <input type="text" name="password">
+    输入文本
+    <input type="text" name="text">
 </p>
     <p>
     <button type='submit'>Submit</button>
 </p>
+    位移：{{ digit }}
+    原文：{{ text }}
+    结果：{{ result }}
 </form>

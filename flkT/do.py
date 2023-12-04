@@ -21,7 +21,10 @@ print(result)
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        return render_template('index.html',name=name, movies=movies)
+        text=request.form.get('text')
+        digit=request.form.get('digit')
+        result=converter(str(text),int(digit))
+        return render_template('index.html',text=text,digit=digit,result=result)
 
     return render_template('index.html')
 
