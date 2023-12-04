@@ -16,6 +16,11 @@ sentence = "AbcD!"
 result = converter(sentence,2)
 print(result)
 
+def parser(text):
+    text = ''
+    return
+
+###################################################################
 
 
 @app.route('/', methods=['GET', 'POST'])
