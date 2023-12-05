@@ -4,23 +4,31 @@
     <title>计算器</title>
 </head>
 <body>
-    <h2>输入要计算的字串</h2>
+    <h2>凯撒密码</h2>
 </body>
 <form method='post' action={{ url_for('index') }}>
     <p>
-    输入位移
-    <input type='text' name='digit'>
-</p>
-    <p>
-    输入文本
-    <input type="text" name="text">
+    输入解密文本
+    <input type="de_text" name="de_text">
 </p>
     <p>
     <button type='submit'>Submit</button>
 </p>
-    位移：{{ digit }}
-    原文：{{ text }}
-    结果：{{ result }}
+    原文：{{ de_text }}
+</p>
+    结果：{{ de_result }}
+</form>
+<form method='post' action={{ url_for('index') }}>
+    <p>
+    输入加密文本
+    <input type="en_text" name="en_text">
+</p>
+    <p>
+    <button type='submit'>Submit</button>
+</p>
+    原文：{{ en_text }}
+</p>
+    结果：{{ en_result }}
 </form>
 </p>
 <form method='post' action="/upload">

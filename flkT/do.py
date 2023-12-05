@@ -2,26 +2,35 @@ from flask import Flask, render_template, url_for, redirect, request, flash
 
 app = Flask(__name__)
 
-def converter(sentence,shift):
-    new_sentence = ''
-    for char in sentence:
+def caesar_decrypt(ciphertext):
+    max_count = 0
+    best_letter = ""
+    
+    #计算文本
+    letter_counts = {}
+    for char in ciphertext:
         if char.isalpha():
-            if char.islower():
-                new_sentence += chr((ord(char)-ord('a') + shift) % 26 + ord('a'))
-            elif char.isupper():
-                new_sentence += chr((ord(char)-ord('A') + shift) % 26 + ord('A'))
+            char = char.lower()
+            letter_counts[char] = letter_counts.get(char, 0) + 1
+    
+    #计算频率与字母
+    for letter, count in letter_counts.items():
+        if count > max_count:
+            max_count = count
+            best_letter = letter
+    
+    plaintext = ""
+    for char in ciphertext:
+        if char.isalpha():
+            ascii_offset = ord('A') if char.isupper() else ord('a')
+            decrypted_char = chr((ord(char) - ord(best_letter) + ord('e') - ascii_offset) % 26 + ascii_offset)
+            plaintext += decrypted_char
         else:
-            new_sentence += char
-    return new_sentence
-
-# 测试代码
-sentence = "AbcD!"
-result = converter(sentence,2)
-print(result)
-
-def parser(text):
-    text = ''
-    return
+            plaintext += char
+    
+    print(f"The letter '{best_letter}' appears {max_count} times.")
+    print(f"Decrypted message: {plaintext}")
+    return plaintext
 
 ###################################################################
 
@@ -29,10 +38,14 @@ def parser(text):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        text=request.form.get('text')
-        digit=request.form.get('digit')
-        result=converter(str(text),int(digit))
-        return render_template('index.html',text=text,digit=digit,result=result)
+        de_text = None
+        en_text = None
+        de_result = None
+        en_result = None
+        de_text=request.form.get('de_text')
+        en_text=request.form.get('en_text')
+        de_result = caesar_decrypt(de_text)
+        return render_template('index.html',de_text=de_text,en_text=en_text,de_result=de_result,en_result=en_result)
 
     return render_template('index.html')
 
