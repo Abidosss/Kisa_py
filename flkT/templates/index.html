@@ -1,39 +1,11 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
-    <title>计算器</title>
+    <title>凯撒密码</title>
 </head>
 <body>
     <h2>凯撒密码</h2>
 </body>
-<form method='post' action={{ url_for('index') }}>
-    <p>
-    输入解密文本
-    <input type="de_text" name="de_text">
 </p>
-    <p>
-    <button type='submit'>Submit</button>
-</p>
-    原文：{{ de_text }}
-</p>
-    结果：{{ de_result }}
-</form>
-<form method='post' action={{ url_for('index') }}>
-    <p>
-    输入加密文本
-    <input type="en_text" name="en_text">
-</p>
-    <p>
-    <button type='submit'>Submit</button>
-</p>
-    原文：{{ en_text }}
-</p>
-    结果：{{ en_result }}
-</form>
-</p>
-<form method='post' action="/upload">
-    上传json文件:
-    <input type="file" name="file">
-    <input type="submit" accept=".json" value="upload">
-
-</form>
+<a href={{ url_for('encrypt') }}>加密</a>
+<a href={{ url_for('decrypt') }}>解密</a>

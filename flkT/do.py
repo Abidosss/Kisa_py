@@ -32,22 +32,41 @@ def caesar_decrypt(ciphertext):
     print(f"Decrypted message: {plaintext}")
     return plaintext
 
+def converter(sentence,shift):
+    new_sentence = ''
+    for char in sentence:
+        if char.isalpha():
+            if char.islower():
+                new_sentence += chr((ord(char)-ord('a') + shift) % 26 + ord('a'))
+            elif char.isupper():
+                new_sentence += chr((ord(char)-ord('A') + shift) % 26 + ord('A'))
+        else:
+            new_sentence += char
+    return new_sentence
+
 ###################################################################
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
-    if request.method == 'POST':
-        de_text = None
-        en_text = None
-        de_result = None
-        en_result = None
-        de_text=request.form.get('de_text')
-        en_text=request.form.get('en_text')
-        de_result = caesar_decrypt(de_text)
-        return render_template('index.html',de_text=de_text,en_text=en_text,de_result=de_result,en_result=en_result)
-
     return render_template('index.html')
+
+@app.route('/encrypt',methods=['GET', 'POST'])
+def encrypt():
+    if request.method == 'POST':
+        shift = request.form.get("Shift")
+        text = request.form.get("OriginalText")
+        result = converter(text,int(shift))
+        return render_template("encrypt.html",EncryptResult=result,OriginalText=text)
+    return render_template("encrypt.html")
+
+@app.route('/decrypt',methods=['GET', 'POST'])
+def decrypt():
+    if request.method == 'POST':
+        text = request.form.get("EncryptText")
+        result = caesar_decrypt(text)
+        return render_template("decrypt.html",DecryptResult=result,EncryptText=text)
+    return render_template("decrypt.html")
 
 @app.route('/upload',methods=['POST'])
 def upload():

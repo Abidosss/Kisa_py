@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>凯撒密码</title>
+</head>
+<body>
+    <h2>凯撒解码</h2>
+</body>
+</p>
+<a href={{ url_for('encrypt') }}>加密</a>
+<a href={{ url_for('decrypt') }}>解密</a>
+
+<form method='post' action={{ url_for('decrypt') }}>
+</p>
+    输入加密文本
+    <input type="EncryptText" name="EncryptText">
+</p>
+    <button type='submit'>Submit</button>
+</form>
+</p>
+<form method="post" action="传送门">
+    选择已加密Json
+    <input type="file" name="file">
+    <input type="submit" value="Submit">
+</form>
+</p>
+原文：{{ EncryptText }}
+</p>
+结果：{{ DecryptResult }}
